@@ -1,0 +1,115 @@
+<div id="model-list" data-pk-type="{{ primary_key_info.type_name }}" data-pk-name="{{ primary_key_info.name }}">
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="checkbox-cell">
+                        <div class="checkbox-wrapper">
+                            <input type="checkbox"
+                                   class="custom-checkbox"
+                                   name="select-all"
+                                   onchange="handleSelectAll(this)">
+                        </div>
+                    </th>
+                    {% for header in table_columns %}
+                        <th class="sortable-header">
+                            <div class="header-content">
+                                {{ header }}
+                                <button class="sort-btn"
+                                        title="Toggle sort"
+                                        hx-get="{{ url_prefix }}/{{ model_name }}/get_model_list"
+                                        hx-target="#model-list"
+                                        hx-include="[name='rows-per-page-select'],[name='column-to-search'],[name='search-input']"
+                                        hx-vals='js:{"sort_by": "{{ header }}", "sort_order": "{% if sort_column == header and sort_order == "asc" %}desc{% else %}asc{% endif %}", "page": "1"}'
+                                        type="button">
+                                    {% if sort_column == header %}
+                                        {% if sort_order == "asc" %}
+                                            <svg class="sort-icon active" viewBox="0 0 24 24" width="14" height="14">
+                                                <path fill="currentColor" d="M12 3l-8 8h16l-8-8zM12 21l8-8H4l8 8z"/>
+                                            </svg>
+                                        {% else %}
+                                            <svg class="sort-icon active" viewBox="0 0 24 24" width="14" height="14">
+                                                <path fill="currentColor" d="M12 21l-8-8h16l-8 8zM12 3l8 8H4l8-8z"/>
+                                            </svg>
+                                        {% endif %}
+                                    {% else %}
+                                        <svg class="sort-icon" viewBox="0 0 24 24" width="14" height="14">
+                                            <path fill="currentColor" d="M12 3l-8 8h16l-8-8zM12 21l8-8H4l8 8z"/>
+                                        </svg>
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in model_items %}
+                    <tr>
+                        <td class="checkbox-cell">
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox"
+                                       class="custom-checkbox"
+                                       name="rowSelect"
+                                       value="{{ row[primary_key_info.name] }}"
+                                       onchange="handleRowSelect()">
+                            </div>
+                        </td>
+                        {% for attribute in row.values() %}
+                            <td>{{ attribute }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% include 'admin/model/components/pagination.html' %}
+</div>
+
+<style>
+    .sortable-header {
+        position: relative;
+    }
+
+    .header-content {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        user-select: none;
+    }
+
+    .sort-btn {
+        background: none;
+        border: none;
+        padding: 4px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border-radius: var(--border-radius-sm);
+        transition: background-color 0.2s;
+    }
+
+    .sort-btn:hover {
+        background-color: var(--bg-secondary-light);
+    }
+
+    .dark-theme .sort-btn:hover {
+        background-color: var(--bg-secondary-dark);
+    }
+
+    .sort-icon {
+        opacity: 0.3;
+        transition: opacity 0.2s;
+    }
+
+    .sort-icon.active {
+        opacity: 1;
+        color: var(--primary-color);
+    }
+
+    .sort-btn:hover .sort-icon:not(.active) {
+        opacity: 0.6;
+    }
+</style>
