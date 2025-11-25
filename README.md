@@ -1,3 +1,48 @@
+#For HN readers : 
+We’ve been working on the Kodaii engine, aimed at generating complete backends that stay coherent across models, routes, workflows, and tests — not just isolated snippets.
+
+To get a sense of how well the engine handles a real project, we asked it to build a Calendly-style booking system from a single prompt. It ran the whole process — planning, code generation, tests, infra, and deployment — in about 8 hours.
+
+What it generated:
+- ~20K lines of Python (FastAPI, async)
+- Postgres schema (6 tables)
+- Services, background tasks, booking logic
+- Email notifications
+- 40 unit tests + 22 integration tests
+- Docker Compose (API + Postgres)
+- GitHub Actions pipeline
+- A running deployment tied to Postgres
+- Code & live endpoints
+
+Everything is open:
+Repo: https://github.com/OlivierKodaii/calendarKodaii
+
+API docs: https://calendar.kodaii.dev/docs
+
+OpenAPI schema: https://calendar.kodaii.dev/openapi.json
+
+Admin interface: https://calendar.kodaii.dev/admin
+
+Why we’re sharing this
+
+We think this line of work may be of interest to peers on HN who care about backend architecture, tooling, and large-scale code generation and your feedback would be very much appreciate.
+
+If you inspect the repo, we’d appreciate any comments on:
+
+- structure,
+- code clarity,
+- decisions that look odd,
+- failure points, 
+- or anything that feels promising or problematic.
+
+For those who want to follow the project or join the upcoming alpha:
+ https://kodaii.dev
+Happy to discuss details or answer questions on HN.
+
+----------------------------------------
+
+
+
 # Kodaii Execution Report — “Calendar Booking API”
 
 ## 0. Product Overview
