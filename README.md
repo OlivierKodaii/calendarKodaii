@@ -3,7 +3,7 @@
 ## 0. Product Overview
 
 Kodaii autonomously generated and deployed a **production-ready booking backend** capable of managing real-time meeting reservations.  
-The system delivers a **fully functional REST API** with **Postgres database**, **admin interface**, **email notifications**, and **automated deployment** — all produced autonomously in under **4 hours**.
+The system delivers a **fully functional REST API** with **Postgres database**, **admin interface**, **email notifications**, and **automated deployment** — all produced autonomously in about **8 hours**.
 
 - **Scope:** Calendar booking system (Calendly-style)
 - **Languages:** Python (FastAPI, async-based)
